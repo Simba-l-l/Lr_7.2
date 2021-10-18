@@ -18,7 +18,6 @@ int main(int argc, char *argv[]) {
     ContextSettings settings;
     settings.antialiasingLevel = 8;
     RenderWindow window(VideoMode(1000, 800), "SFML OpenGL");
-    double rotate = 0;
     field.generate_main_field();
     field.generate_shapes();
     while (window.isOpen()){
@@ -44,6 +43,7 @@ int main(int argc, char *argv[]) {
             }
             field.rect[i].move();
             field.rect[i].rotate();
+            cout << field.rect[i];
             window.draw(field.rect[i].shape);
         }
         for(int i = 0; i < field.circles; i++){
@@ -56,6 +56,7 @@ int main(int argc, char *argv[]) {
                 field.circ[i].shape.setOutlineColor(sf::Color(rand() % 255, rand() % 255, rand() % 255));
             }
             field.circ[i].move();
+            cout << field.circ[i];
             window.draw(field.circ[i].shape);
         }
         window.display();

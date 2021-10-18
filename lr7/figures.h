@@ -39,12 +39,11 @@ public:
         geometry[2] = double (1+rand() % int(diag - 1)); //a
         geometry[3] = sqrt(diag * diag - geometry[2] * geometry[2]);
         shape.setSize(sf::Vector2f(geometry[2], geometry[3]));
-        shape.setOutlineColor(sf::Color::Magenta);
+        shape.setOutlineColor(sf::Color::Yellow);
         shape.setFillColor(sf::Color(10, 10, 10, 1));
         shape.setOutlineThickness(3);
         shape.setPosition(geometry[0], geometry[1]);
         movement[0] = (double (2. + rand()%int(R))-R/2)/(R*8) ; //dx
-        std::cout << " " << movement[0] << std::endl;
         movement[1] = (double (2. + rand()%int(R))-R/2)/(R*8) ; //dy
         movement[2] = (double (rand()%100)-50)/500; //rotation
     }
@@ -54,14 +53,17 @@ public:
 
     void rotate(){
         shape.rotate(movement[2]);
-        }
+    }
 
 };
 
 std::ostream& operator << (std::ostream &out, const Rectangle &point){
-    return out << "[Rectangle] x=" << point.geometry[0] << "; у=" << point.geometry[1]
-    << "; a=" << point.geometry[2] << "; b=" << point.geometry[3] << ";" << std::endl;
+    return out << "[Rectangle] x=" << point.shape.getPosition().x << "; у=" << point.shape.getPosition().y
+               << "; a=" << point.geometry[2] << "; b=" << point.geometry[3] <<
+               "; angular velocity="<< point.movement[2] << "; dx="<<
+               point.movement[0] << "; dy=" << point.movement[1]<< std::endl;
 }
+
 
 
 class Circle : public Figure{
@@ -80,7 +82,7 @@ public:
         shape.setRadius(geometry[2]);
         shape.setPosition(geometry[0], geometry[1]);
         shape.setFillColor(sf::Color(10, 10, 10, 0));
-        shape.setOutlineColor(sf::Color::Green);
+        shape.setOutlineColor(sf::Color::White);
         shape.setOutlineThickness(3);
         movement[0] = (double (2. + rand() % int(R)) - R / 2) / ( R * 8); //dx
         movement[1] = (double (2. + rand() % int(R)) - R / 2) / (R * 8); //dy
@@ -96,8 +98,9 @@ public:
 };
 
 std::ostream& operator << (std::ostream &out, const Circle &point){
-    return out << "[Circle] x=" << point.geometry[0] << "; у=" << point.geometry[1]
-    << "; r=" << point.geometry[2]<< ";" << std::endl;
+    return out << "[Circle] x=" << point.shape.getPosition().x << "; у=" << point.shape.getPosition().y
+               << "; r=" << point.geometry[2]<< "; angular velocity="<< point.movement[2] << "; dx="<<
+               point.movement[0] << "; dy=" << point.movement[1]<< std::endl;
 }
 
 class Field{
